@@ -9,21 +9,34 @@ var bower = require('gulp-bower');
 var uglify = require('gulp-uglify');
 var gulpif = require('gulp-if');
 var autoprefixer = require('gulp-autoprefixer');
+var imagemin = require('gulp-imagemin');
+var imageminPngquant = require('imagemin-pngquant');
 
 var config = {
-    includePaths: ['./src/assets/lib/bootstrap-sass/assets/stylesheets', './src/assets/lib/bootswatch/flatly']
+    includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets', './bower_components/bootswatch/flatly']
 };
 
+var folders = {
+
+}
+
+
+// Installs Bower dependecies
 gulp.task('bower', function () {
     return bower();
 })
 
+// Compiles Pug templates, removes whitespace in production 
 gulp.task('pug', function () {
     return gulp.src('./src/**/*.pug')
-        .pipe(pug())
+        .pipe(gulpif(argv.p, pug(), 
+        pug({
+            pretty: true
+        })))
         .pipe(gulp.dest('./public/'))
 })
 
+// Compiles Sass files to css, compresses in production
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
         .pipe(gulpif(argv.p, sass({
@@ -37,9 +50,17 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./public/'))
 })
 
+// Uglifies JS files in production
 gulp.task('js', function () {
-    return gulp.src(['./src/**/*.js', '!./src/assets/lib/**/*.js'])
+    return gulp.src('./src/**/*.js')
         .pipe(gulpif(argv.p, uglify()))
+        .pipe(gulp.dest('./public/'))
+})
+
+// Optimize Images
+gulp.task('img', function () {
+    return gulp.src(['./src/**/*.jpg', './src/**/*.png', './src/**/*.gif'])
+        .pipe(imagemin([imageminPngquant(), imagemin.gifsicle(), imagemin.jpegtran({progressive: true})]))
         .pipe(gulp.dest('./public/'))
 })
 
@@ -48,6 +69,7 @@ gulp.task('assets', function () {
         .pipe(gulp.dest('./public/assets/'))
 })
 
+// Clear the build directory
 gulp.task('clean', function () {
     return gulp.src('./public/', { read: false })
         .pipe(clean());
@@ -55,8 +77,8 @@ gulp.task('clean', function () {
 
 gulp.task('build', function () {
     runSequence(['clean', 'bower'],
-        ['pug', 'sass', 'js'],
-        'assets')
+        'assets',
+        ['pug', 'sass', 'js', 'img'])
 })
 
 gulp.task('default', ['build'])

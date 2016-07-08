@@ -1,11 +1,9 @@
-doctype html
-html
-    head
-        title Express Boilerplate
-        link(href="/common/site.css", rel="stylesheet", type="text/css")
-    body
-        nav.navbar.navbar-default.navbar-fixed-top
-        .container
-            .row
-                .col-xs-12
-                    h1 Express Boilerplate
+extends ./layout.pug
+
+block title
+    title Express Boilerplate
+
+block content
+    .row
+        .col-xs-12
+            h1 Express Boilerplate
