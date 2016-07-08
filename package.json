@@ -5,21 +5,21 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "./node_modules/.bin/bower install && gulp"
+    "postinstall": "./node_modules/.bin/gulp"
   },
   "author": "Matthew Stegall",
   "license": "ISC",
   "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.13.4",
-    "morgan": "^1.7.0",
-    "nodemon": "^1.9.2",
-    "bootstrap-sass": "^3.3.6",
     "gulp": "^3.9.1",
-    "node-sass": "^3.8.0",
+    "gulp-bower": "0.0.13",
     "gulp-clean": "^0.3.2",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.3.2",
+    "morgan": "^1.7.0",
+    "node-sass": "^3.8.0",
+    "nodemon": "^1.9.2",
     "pug": "^2.0.0-beta3",
     "rimraf": "^2.5.3",
     "run-sequence": "^1.2.2"
