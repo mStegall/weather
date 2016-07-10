@@ -5,12 +5,7 @@ var port = process.env.PORT || 3000;
 // Init express app
 var app = express();
 
-var config = {
-    rootPath : __dirname
-};
-
-// Express App
-require('./server/config/express')(app, config);
+app.use(express.static('public'));
 
 // Start server
 app.listen(port, function() {
