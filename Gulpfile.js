@@ -11,15 +11,13 @@ var gulpif = require('gulp-if');
 var autoprefixer = require('gulp-autoprefixer');
 var imagemin = require('gulp-imagemin');
 var imageminPngquant = require('imagemin-pngquant');
+var ghPages = require('gulp-gh-pages');
 
 var config = {
-    includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets', './bower_components/bootswatch/flatly']
+    includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets', './bower_components/bootswatch/simplex']
 };
 
-var folders = {
-
-}
-
+var production = argv.p
 
 // Installs Bower dependecies
 gulp.task('bower', function () {
@@ -29,7 +27,7 @@ gulp.task('bower', function () {
 // Compiles Pug templates, removes whitespace in production 
 gulp.task('pug', function () {
     return gulp.src('./src/**/*.pug')
-        .pipe(gulpif(argv.p, pug(), 
+        .pipe(gulpif(production, pug(), 
         pug({
             pretty: true
         })))
@@ -39,7 +37,7 @@ gulp.task('pug', function () {
 // Compiles Sass files to css, compresses in production
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
-        .pipe(gulpif(argv.p, sass({
+        .pipe(gulpif(production, sass({
             includePaths: config.includePaths,
             outputStyle: 'compressed'
         }),
@@ -53,7 +51,7 @@ gulp.task('sass', function () {
 // Uglifies JS files in production
 gulp.task('js', function () {
     return gulp.src('./src/**/*.js')
-        .pipe(gulpif(argv.p, uglify()))
+        .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('./public/'))
 })
 
@@ -64,8 +62,8 @@ gulp.task('img', function () {
         .pipe(gulp.dest('./public/'))
 })
 
-gulp.task('assets', function () {
-    return gulp.src('./src/assets/**/*')
+gulp.task('bowerDir', function () {
+    return gulp.src('./bower_components/**/*')
         .pipe(gulp.dest('./public/assets/'))
 })
 
@@ -75,10 +73,17 @@ gulp.task('clean', function () {
         .pipe(clean());
 })
 
-gulp.task('build', function () {
+gulp.task('build', function (callback) {
     runSequence(['clean', 'bower'],
-        'assets',
-        ['pug', 'sass', 'js', 'img'])
+        ['pug', 'sass', 'js', 'img','bowerDir'],
+        callback)
+})
+
+gulp.task('deploy',['build'], function () {
+    production = true;
+    
+    return gulp.src('./public/**/*')
+        .pipe(ghPages());
 })
 
 gulp.task('default', ['build'])

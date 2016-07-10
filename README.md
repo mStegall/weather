@@ -1,2 +1,4 @@
-#Express Boilerplate
-A first attempt at a boilerplate for Express configured for a Multipage Application using Pug(Jade), Sass, Bootstrap, and Gulp.
+# GitHub Pages Template
+A template for quick projects deployed to GitHub pages.
+
+Configured to use Pug and Sass and preconfigured for Bootstrap with Bootswatch Themes.

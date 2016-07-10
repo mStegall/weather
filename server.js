@@ -12,10 +12,6 @@ var config = {
 // Express App
 require('./server/config/express')(app, config);
 
-
-// Express Routing
-require('./server/config/routes')(app, config);
-
 // Start server
 app.listen(port, function() {
   console.log("Starting the magic box!");

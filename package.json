@@ -4,19 +4,21 @@
   "description": "A basic express server.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "./node_modules/.bin/gulp"
+    "start": "node server.js"
   },
   "author": "Matthew Stegall",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "compression": "^1.6.2",
     "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-bower": "0.0.13",
     "gulp-clean": "^0.3.2",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.1",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.5.4",
@@ -28,8 +30,5 @@
     "rimraf": "^2.5.3",
     "run-sequence": "^1.2.2",
     "yargs": "^4.7.1"
-  },
-  "devDependencies": {
-    "gulp-imagemin": "^3.0.1"
   }
 }
