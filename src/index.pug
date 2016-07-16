@@ -1,11 +1,17 @@
 doctype html
 html
     head
-        title Express Boilerplate
+        title Weather Window
         link(href="/common/site.css", rel="stylesheet", type="text/css")
-        
+        script(src="common/script.js")
     body
         .container
             .row
-                .col-xs-12
-                    h1 GitHub Pages Template
+                .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4
+                    h1.text-center Weather Window
+                    h2.text-center#city
+                    h3#currTemp
+                    .col-xs-6
+                        h4#minTemp
+                    .col-xs-6
+                        h4#maxTemp
