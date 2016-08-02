@@ -9,8 +9,7 @@
   },
   "author": "Matthew Stegall",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.13.4",
     "gulp": "^3.9.1",
@@ -31,5 +30,6 @@
     "rimraf": "^2.5.3",
     "run-sequence": "^1.2.2",
     "yargs": "^4.7.1"
-  }
+    },
+  "devDependencies": {}
 }
