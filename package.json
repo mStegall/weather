@@ -4,7 +4,8 @@
   "description": "A basic express server.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "gulp -p"
   },
   "author": "Matthew Stegall",
   "license": "ISC",
