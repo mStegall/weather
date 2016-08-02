@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "gulp -p"
+    "postinstall": "./node_modules/.bin/gulp -p"
   },
   "author": "Matthew Stegall",
   "license": "ISC",
