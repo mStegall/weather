@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var lat;
     var lon;
-    var APIKEY = 'c55d175c056c02049300e4f9dd300bbc';
+    var APIKEY = '53f1e6bba516704be136a29d78719407';
 
     navigator.geolocation.getCurrentPosition(success)
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getWeather(unit) {
         var request = new XMLHttpRequest();
-        var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
+        var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
 
         request.open('GET', url,true)
 
