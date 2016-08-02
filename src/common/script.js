@@ -5,9 +5,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     navigator.geolocation.getCurrentPosition(success)
 
+    var fButton = document.getElementById('fSelector');
+    var cButton = document.getElementById('cSelector') 
+
+    fButton.addEventListener('click', function () {
+        fButton.classList.add('btn-success');
+        fButton.classList.remove('btn-danger');
+        cButton.classList.add('btn-danger');
+        cButton.classList.remove('btn-success');    
+        getWeather('F');
+    })
+
+    cButton.addEventListener('click', function () {
+        fButton.classList.remove('btn-success');
+        fButton.classList.add('btn-danger');
+        cButton.classList.remove('btn-danger');
+        cButton.classList.add('btn-success');
+        getWeather('C');
+    })
+
     function success(pos) {
         setCoord(pos);
-        getWeather();
+        getWeather('F');
     }
 
     function setCoord(pos) {
@@ -15,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         lon = pos.coords.longitude;
     }
 
-    function getWeather() {
+    function getWeather(unit) {
         var request = new XMLHttpRequest();
         var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
 
@@ -24,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         request.onload = function (e) {
             if (request.readyState === 4){
                 if (request.status === 200) {
-                    displayWeather(JSON.parse(request.responseText));
+                    displayWeather(JSON.parse(request.responseText), unit);
                 } else {
                     console.log(request.statusText);
                 }
@@ -38,14 +57,52 @@ document.addEventListener('DOMContentLoaded', function () {
         request.send(null);
     }
 
-    function displayWeather(res) {
-        console.log(res.name);
-        console.log(res.main);
+    function displayWeather(res, unit) {
         document.getElementById('city').innerText = res.name;
-        
-        document.getElementById('currTemp').innerText = toF(res.main.temp);
-        document.getElementById('minTemp').innerText = toF(res.main.temp_min);
-        document.getElementById('maxTemp').innerText = toF(res.main.temp_max);
+        document.getElementById('condition').innerText = res.weather[0].description;
+
+        var id = res.weather[0].id;
+        var body = document.getElementsByTagName('body')[0];
+
+        if (id < 300) {
+            // Thunderstorm
+            body.classList.add('background-thunder');
+
+        } else if (id < 600 || id == 701) {
+            // General Rain
+            body.classList.add('background-rain');
+
+        } else if (id < 700) {
+            // Snow
+            body.classList.add('background-snow');
+
+        } else if (id == 800) {
+            // Clear Skys
+            body.classList.add('background-clear');
+
+        } else if (id > 800 && id < 900) {
+            // Cloudy Skys
+            body.classList.add('background-cloudy');
+
+        }
+
+        var temp;
+        var minTemp;
+        var maxTemp;
+
+        if (unit == "F") {
+            temp = toF(res.main.temp).toFixed(1) + 'F';
+            minTemp = toF(res.main.temp_min).toFixed(1) + 'F';
+            maxTemp = toF(res.main.temp_max).toFixed(1) + 'F';
+        } else if (unit == "C") {
+            temp = toC(res.main.temp).toFixed(1) + 'C';
+            minTemp = toC(res.main.temp_min).toFixed(1) + 'C';
+            maxTemp = toC(res.main.temp_max).toFixed(1) + 'C';
+        }
+
+        document.getElementById('currTemp').innerText = 'Temp: ' + temp;
+        document.getElementById('minTemp').innerText = 'Min: ' + minTemp;
+        document.getElementById('maxTemp').innerText = 'Max: ' + maxTemp;
     }
 
     function toF (K) {

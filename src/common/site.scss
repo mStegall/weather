@@ -2,3 +2,41 @@
 @import 'bootstrap';
 @import 'bootswatch';
 
+.background-clear {
+    background-image: url('/images/clear.png')
+}
+
+.background-rain {
+    background-image: url('/images/rain.png')
+}
+
+.background-snow {
+    background-image: url('/images/rain.png')
+}
+
+.background-thunder {
+    background-image: url('/images/thunder.png')
+}
+
+.background-cloudy {
+    background-image: url('/images/cloudy.png')
+}
+
+body {
+    height: 100vh;
+}
+
+#weatherData {
+    background-color: rgba(255,255,255,.75);
+    border-radius: 10px;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#currTemp {
+    margin-top: 2px;
+}

@@ -1,16 +1,23 @@
 doctype html
 html
     head
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         title Weather Window
         link(href="/common/site.css", rel="stylesheet", type="text/css")
         script(src="common/script.js")
     body
         .container
             .row
-                .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4
+                .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4#weatherData
                     h1.text-center Weather Window
-                    h2.text-center#city
-                    h3#currTemp
+                    h2.text-center.text-capitalize#city
+                    h3.text-center.text-capitalize#condition
+                    
+                    div.col-xs-12.clearfix
+                        h3.pull-left#currTemp
+                        .btn-group.pull-right#unitSelectors
+                            button.btn.btn-success#fSelector F
+                            button.btn.btn-danger#cSelector C
                     .col-xs-6
                         h4#minTemp
                     .col-xs-6
