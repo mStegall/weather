@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getWeather(unit) {
         var request = new XMLHttpRequest();
-        var url = 'http://api.wunderground.com/api/90ebc14a3bbbab9e/geolookup/forecast/conditions/q/' + lat + ',' + lon + '.json'
+        var url = 'https://api.wunderground.com/api/90ebc14a3bbbab9e/geolookup/forecast/conditions/q/' + lat + ',' + lon + '.json'
 
         request.open('GET', url, true)
 
